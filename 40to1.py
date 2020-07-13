@@ -14,7 +14,7 @@ def runmain(address, account, password, fun, kickflag=0):
     # 主功能体函数
     # 请在本函数中自定义需要的功能
 
-    a = Automator(address)
+    a = Automator(address, account)
     a.start()
     print('>>>>>>>即将登陆的账号为：', account, '密码：', password, '<<<<<<<', '\r\n')
     a.login_auth(account, password)  # 注意！请把账号密码写在zhanghao.txt内
@@ -27,7 +27,7 @@ def runmain(address, account, password, fun, kickflag=0):
     # a.mianfeishilian()  # 免费十连
     a.dianzan(sortflag=1)  # 公会点赞
     # a.hanghui()  # 行会捐赠
-    a.dixiacheng(firsttime=False,skip=False)  # 地下城 如果是首次使用需要跳过剧情，可以修改firsttime=True；需要跳过战斗则skip=True
+    a.dixiacheng(skip=False)  # 地下城，需要跳过战斗则skip=True
     # a.goumaitili(3)  # 购买3次体力
     a.shouqurenwu()  # 收取任务
     a.goumaitili(5)  # 购买3次体力
@@ -80,7 +80,7 @@ def runmain_hz(address, account, password, kickflag=0):
 
 def invitemain(address, account, password, inviteUID):
     # 邀请入会函数，请不要更改本函数中的功能
-    a = Automator(address)
+    a = Automator(address, account)
     a.start()
     print('>>>>>>>即将登陆的账号为：', account, '密码：', password, '<<<<<<<', '\r\n')
     a.login_auth(account, password)  # 注意！请把账号密码写在zhanghao.txt内
@@ -91,7 +91,7 @@ def invitemain(address, account, password, inviteUID):
 
 def acceptmain(address, account, password):
     # 接受入会邀请函数，请不要更改本函数中的功能
-    a = Automator(address)
+    a = Automator(address, account)
     a.start()
     print('>>>>>>>即将登陆的账号为：', account, '密码：', password, '<<<<<<<', '\r\n')
     a.login_auth(account, password)  # 注意！请把账号密码写在zhanghao.txt内
@@ -149,8 +149,8 @@ def read(filename):  # 读取账号
 
 def readauth(filename):  # 读取记有大号和会长账号的txt
     pattern3 = re.compile('\\s*(.*?)[\\s-]+([^\\s-]+)[\\s-]*([0-9]+)')
-    pattern2 = re.compile('\\s*(.*?)[\\s-]+([^\\s-]+)')
-    with open(filename, 'r') as f:  # 注意！请把大号和会长账号密码写在zhanghao.txt内
+    pattern2 = re.compile('\\s*(.*?)[\\s-]+([^\\s-]+)[\\s-]*(.*)')
+    with open(filename, 'r') as f:  # 注意！请把大号和会长账号密码写在40_huizhang.txt内
         line = f.readline()
         result = pattern3.findall(line)
         if len(result) != 0:
@@ -161,18 +161,18 @@ def readauth(filename):  # 读取记有大号和会长账号的txt
         line = f.readline()
         result = pattern2.findall(line)
         if len(result) != 0:
-            account_1, password_1 = result[0]
+            account_1, password_1, fun_1 = result[0]
         else:
             print("会长1账号格式有误，请检查")
             exit(-1)
         line = f.readline()
         result = pattern2.findall(line)
         if len(result) != 0:
-            account_2, password_2 = result[0]
+            account_2, password_2, fun_2 = result[0]
         else:
             print("会长2账号格式有误，请检查")
             exit(-1)
-    return account_boss, password_boss, UID, account_1, password_1, account_2, password_2
+    return account_boss, password_boss, UID, account_1, password_1, fun_1, account_2, password_2, fun_2
 
 
 def shuatu_auth(a, account, fun):  # 刷图总控制
@@ -233,7 +233,8 @@ if __name__ == '__main__':
         t.join()
 
     # 读取大号和会长账号
-    account_boss, password_boss, UID, account_1, password_1, account_2, password_2 = readauth('40_huizhang.txt')
+    account_boss, password_boss, UID, account_1, password_1, fun_1, account_2, password_2, fun_2 = readauth(
+        '40_huizhang.txt')
     # 执行会长1的日常任务+踢出大号
     t = threading.Thread(target=runmain_hz,
                          args=(lines[0], account_1, password_1, 1))
