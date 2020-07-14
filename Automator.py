@@ -264,6 +264,8 @@ class Automator:
             time.sleep(0.5)
             self.d.click(916, 36)  # 跳过
             time.sleep(0.5)
+            self.d.click(1, 1)
+            time.sleep(0.5)
         self.lockimg('img/liwu.bmp', elseclick=[(1, 1)], elsedelay=0.5)  # 首页锁定
         time.sleep(0.5)
 
