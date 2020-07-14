@@ -201,7 +201,7 @@ if __name__ == '__main__':
     lines, emulatornum = connect()
     # 读取账号
     account_list, account_dic, accountnum, fun_list, fun_dic = read('40_1.txt')
-    '''
+    
     # 多线程执行
     count = 0  # 完成账号数
     thread_list = []
@@ -231,7 +231,7 @@ if __name__ == '__main__':
         t.start()
     for t in thread_list:
         t.join()
-    '''
+    
     # 读取大号和会长账号
     account_boss, password_boss, UID, account_1, password_1, fun_1, account_2, password_2, fun_2 = readauth(
         '40_huizhang.txt')
