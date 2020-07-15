@@ -29,9 +29,9 @@ def runmain(address, account, password, fun, kickflag=0):
     # a.hanghui()  # 行会捐赠
     a.dixiacheng(skip=False)  # 地下城，需要跳过战斗则skip=True
     # a.goumaitili(3)  # 购买3次体力
-    a.shouqurenwu()  # 收取任务
-    a.goumaitili(5)  # 购买3次体力
-    a.gonghuizhijia()  # 家园一键领取
+    # a.shouqurenwu()  # 收取任务
+    a.goumaitili(6)  # 购买3次体力
+    # a.gonghuizhijia()  # 家园一键领取
     ok = shuatu_auth(a, account, fun)  # 刷图控制中心
     if ok:  # 仅当刷图被激活(即注明了刷图图号)的账号执行行会捐赠，不刷图的认为是mana号不执行行会捐赠。
         a.hanghui()  # 行会捐赠
